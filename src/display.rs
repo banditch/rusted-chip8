@@ -11,6 +11,9 @@ impl Display {
     pub fn _clear(&mut self) {
         self.display = [false; 2048];
     }
+    pub fn pixels(&self) -> &[bool; 2048] {
+        &self.display
+    }
     fn pixel(&mut self, pixel: usize, sprite: bool) -> bool {
         let result: bool = self.display[pixel] && sprite;
         self.display[pixel] ^= sprite;

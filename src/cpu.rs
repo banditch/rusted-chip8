@@ -312,40 +312,40 @@ impl Cpu {
         self.pc = 0x0200;
         return Ok(());
     }
-    fn _print_v(&self) {
-        println!(" x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF");
-        for reg in self.v {
-            print!("0x{:02X} ", reg)
+}
+
+pub struct CpuView<'a> {
+    pub v: &'a [u8; 16],
+    pub memory: &'a [u8; 4096],
+    pub display: &'a [bool; 2048],
+    pub stack: &'a [u16; 16],
+    pub i: u16,
+    pub pc: u16,
+    pub sp: u8,
+    pub dlt: u8,
+    pub sdt: u8,
+}
+
+impl Cpu {
+    pub fn ui_view(&self) -> CpuView<'_> {
+        CpuView {
+            v: &self.v,
+            memory: &self.memory,
+            display: self.display.pixels(),
+            stack: &self.stack,
+            i: self.i,
+            pc: self.pc,
+            sp: self.sp,
+            dlt: self.timer.dlt,
+            sdt: self.timer.sdt,
         }
-        println!("");
     }
-    fn _print_mem(&self) {
-        print!("      ");
-        for i in 0..16 {
-            print!("{:02X}   ", i)
-        }
-        println!();
-        for (i, row) in self.memory.chunks(16).enumerate() {
-            print!("{:04X}: ", i * 16);
-            for j in row {
-                print!("0x{:02X} ", j);
-            }
-            println!();
-        }
+
+    pub fn ui_key(&mut self, key: u8, pressed: bool) {
+        self.keys.set(key, pressed);
     }
-    pub fn _state(&self) {
-        self._print_v();
-        println!();
-        self._print_mem();
-    }
-    pub(crate) fn _snapshot(&self) -> (&[u8; 16], u16, u16, &[u8; 4096], u8, u8) {
-        (
-            &self.v,
-            self.i,
-            self.pc,
-            &self.memory,
-            self.timer.dlt,
-            self.timer.sdt,
-        )
+
+    pub fn ui_tick_timers(&mut self) {
+        self.timer.tick();
     }
 }
