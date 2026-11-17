@@ -22,4 +22,9 @@ impl Keyboard {
         }
         return None;
     }
+    pub fn set(&mut self, key: u8, pressed: bool) {
+        if let Some(slot) = self.keys.get_mut(key as usize) {
+            *slot = pressed;
+        }
+    }
 }
