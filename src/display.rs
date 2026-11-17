@@ -21,6 +21,8 @@ impl Display {
     }
     pub fn draw(&mut self, x: u8, y: u8, rows: &[u8]) -> bool {
         let mut collision = false;
+        let x = x % 64;
+        let y = y % 32;
         for (i, row) in rows.iter().enumerate() {
             for j in 0..8 {
                 if (x as usize + j) < 64 && (y as usize + i) < 32 {

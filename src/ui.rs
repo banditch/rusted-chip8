@@ -164,8 +164,8 @@ pub fn run() -> eframe::Result<()> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_title("Rusted CHIP-8 — Debugger")
-            .with_inner_size([1060.0, 770.0])
-            .with_position([30.0, 70.0])
+            .with_inner_size([900.0, 770.0])
+            .with_position([10.0, 70.0])
             .with_min_inner_size([980.0, 720.0]),
         ..Default::default()
     };
@@ -518,7 +518,7 @@ impl EmulatorApp {
             egui::ViewportBuilder::default()
                 .with_title("CHIP-8 — Video output")
                 .with_inner_size([448.0, 224.0])
-                .with_position([990.0, 70.0])
+                .with_position([1000.0, 70.0])
                 .with_resizable(true)
                 .with_close_button(true)
                 .with_maximize_button(true),
