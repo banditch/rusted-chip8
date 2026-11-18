@@ -98,6 +98,22 @@ const ALLOWED_KEYS: &[egui::Key] = &[
     egui::Key::ArrowRight,
 ];
 
+fn load_icon() -> egui::IconData {
+    let bytes = include_bytes!("../assets/img/icon.png");
+    let image = image::load_from_memory(bytes)
+        .expect("failed to load icon")
+        .into_rgba8();
+
+    let (width, height) = image.dimensions();
+    let rgba = image.into_raw();
+
+    egui::IconData {
+        rgba,
+        width,
+        height,
+    }
+}
+
 fn keymap_path() -> Option<PathBuf> {
     std::env::var_os("HOME")
         .or_else(|| std::env::var_os("USERPROFILE"))
@@ -164,6 +180,7 @@ pub fn run() -> eframe::Result<()> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_title("Rusted CHIP-8 — Debugger")
+            .with_icon(load_icon())
             .with_inner_size([900.0, 770.0])
             .with_position([10.0, 70.0])
             .with_min_inner_size([980.0, 720.0]),
