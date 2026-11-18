@@ -1,7 +1,8 @@
 [package]
 name = "rustedChip-8"
-version = "0.1.0"
-edition = "2024"
+version = "0.3.1"
+description = "A CHIP-8 emulator written in Rust"
+edition = "2026"
 
 [dependencies]
 eframe = "0.37.0"
@@ -11,5 +12,6 @@ rfd = "0.17.2"
 
 [package.metadata.bundle]
 name = "Rusted CHIP-8"
-identifier = "com.banditch.rustedchip8"
-icon = ["assets/AppIcon.icns"]
+identifier = "io.github.banditch.rusted-chip8"
+icon = ["assets/icon.icns"]
+category = "public.app-category.games"
